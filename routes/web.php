@@ -91,12 +91,12 @@ $router->group(['prefix' => 'penjualan'], function () use ($router) {
         }
         return response()->json(['msg' => "Berhasil Konfirmasi"]);
     });
-    $router->get('/{id}/send-email', function (Request $request, $id) {
+    $router->get('/{id}/send-email', ['middleware' => 'auth', function (Request $request, $id) {
         $user = $request->user();
         Mail::raw('This is the email body', function($message) {
             $message->to('hariagung1703@gmail.com')
             ->subject('Lumen Test Email');
         });
         return response()->json(['msg' => "Berhasil Kirim Email"]);
-    });
+    }]);
 });
